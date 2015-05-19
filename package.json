@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "Yining Shi",
     "scripts": {
-    "web": "node index.js"
+    "web": "node index"
   },
   "dependencies": {
     "express": "^4.10.2",
