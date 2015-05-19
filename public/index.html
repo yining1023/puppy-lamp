@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="css/site.min.css">
     <link rel="stylesheet" href="css/foundation.min.css">
     <link rel="stylesheet" href="css/style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.16/p5.min.js"></script>
 	<script src="js/foundation.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.16/addons/p5.dom.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
 	<script type="text/javascript" src="js/site.min.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 
@@ -24,7 +23,7 @@
 	var lights;
 	var url, username;
 	var address, userName, addressLabel, nameLabel, connectButton;
-	var valueHue = [0, 6857, 15085, 23313, 45256, 50741, 61712];
+	var valueHue = [0, 6857, 17085, 26313, 37654, 41000, 45256, 49131, 53741, 61712];
 	var payload1 = [];
 	var oneJson, onepayload1, colorData;
 		
@@ -175,7 +174,102 @@
 		var path = url + lightNumber + '/state';		// assemble the full URL
 		var content = JSON.stringify(colorData);				// convert JSON obj to string
 
-		if(msg.indexOf("<3") > -1){
+		// if(msg.indexOf("<3") > -1){
+		// 	content = JSON.stringify({"alert": "select"});
+		// 	var request = $.ajax({
+		// 		type: "PUT",					// use the PUT method
+		// 		url: path,						// URL to call
+		// 		data: content,					// body of the request
+		// 		dataType: 'text/json'		// data type of the body
+		// 		}, function(response) {		// callback function
+		// 			println(response);		// server (hub) response
+		// 			getLights();				// refresh the lights from the hub
+		// 	});
+
+		// }
+
+		if(msg.indexOf("<3") > -1 || msg.indexOf("miss you") > -1 || msg.indexOf("me too") > -1 || msg.indexOf("me 2") > -1){
+			content = JSON.stringify({"hue": "select"});
+			var request = $.ajax({
+				type: "PUT",					// use the PUT method
+				url: path,						// URL to call
+				data: content,					// body of the request
+				dataType: 'text/json'		// data type of the body
+				}, function(response) {		// callback function
+					println(response);		// server (hub) response
+					getLights();				// refresh the lights from the hub
+			});
+			setTimeout(function () {
+			        content = JSON.stringify({"alert": "select"});
+					var request = $.ajax({
+					type: "PUT",					// use the PUT method
+					url: path,						// URL to call
+					data: content,					// body of the request
+					dataType: 'text/json'		// data type of the body
+					}, function(response) {		// callback function
+						println(response);		// server (hub) response
+						getLights();				// refresh the lights from the hub
+				});
+		    }, 1500);
+
+		}
+
+		
+
+		if(msg.indexOf("don't") > -1 || msg.indexOf("Sorry") > -1 || msg.indexOf("sorry") > -1){
+			content = JSON.stringify({"on":false});
+			var request = $.ajax({
+				type: "PUT",					// use the PUT method
+				url: path,						// URL to call
+				data: content,					// body of the request
+				dataType: 'text/json'		// data type of the body
+				}, function(response) {		// callback function
+					println(response);		// server (hub) response
+					getLights();				// refresh the lights from the hub
+			});
+			setTimeout(function () {
+			        content = JSON.stringify({"on":true});
+					var request = $.ajax({
+					type: "PUT",					// use the PUT method
+					url: path,						// URL to call
+					data: content,					// body of the request
+					dataType: 'text/json'		// data type of the body
+					}, function(response) {		// callback function
+						println(response);		// server (hub) response
+						getLights();				// refresh the lights from the hub
+				});
+		    }, 5000);
+
+		}
+
+
+		if(msg.indexOf("good night") > -1){
+			content = JSON.stringify({"effect":"colorloop"});
+			var request = $.ajax({
+				type: "PUT",					// use the PUT method
+				url: path,						// URL to call
+				data: content,					// body of the request
+				dataType: 'text/json'		// data type of the body
+				}, function(response) {		// callback function
+					println(response);		// server (hub) response
+					getLights();				// refresh the lights from the hub
+			});
+			setTimeout(function () {
+			        content = JSON.stringify({"effect":"none"});
+					var request = $.ajax({
+					type: "PUT",					// use the PUT method
+					url: path,						// URL to call
+					data: content,					// body of the request
+					dataType: 'text/json'		// data type of the body
+					}, function(response) {		// callback function
+						println(response);		// server (hub) response
+						getLights();				// refresh the lights from the hub
+				});
+		    }, 15000);
+
+		}
+
+		if(msg.indexOf("hey") > -1 || msg.indexOf("Hey") > -1 || msg.indexOf("Hi") > -1 || msg.indexOf("hi") > -1 || msg.indexOf("kidding") > -1){
 			content = JSON.stringify({"alert": "select"});
 			var request = $.ajax({
 				type: "PUT",					// use the PUT method
@@ -186,8 +280,34 @@
 					println(response);		// server (hub) response
 					getLights();				// refresh the lights from the hub
 			});
+			setTimeout(function () {
+			        content = JSON.stringify({"alert": "select"});
+					var request = $.ajax({
+					type: "PUT",					// use the PUT method
+					url: path,						// URL to call
+					data: content,					// body of the request
+					dataType: 'text/json'		// data type of the body
+					}, function(response) {		// callback function
+						println(response);		// server (hub) response
+						getLights();				// refresh the lights from the hub
+				});
+		    }, 1000);
+		    setTimeout(function () {
+			        content = JSON.stringify({"alert": "select"});
+					var request = $.ajax({
+					type: "PUT",					// use the PUT method
+					url: path,						// URL to call
+					data: content,					// body of the request
+					dataType: 'text/json'		// data type of the body
+					}, function(response) {		// callback function
+						println(response);		// server (hub) response
+						getLights();				// refresh the lights from the hub
+				});
+		    }, 2000);
 
 		}
+
+
 		content = JSON.stringify(colorData);
 
 		// console.log(msg);
@@ -245,52 +365,67 @@
 		<div class="color-wrap clearfix">
 		<div class="color-picker">
 			<div class="color-item" style="background-color:#F22613;" onclick="chooseColor(0)">
-				<span class="color-name">Pomegranate</span><br>
+				<span class="color-name">Red</span><br>
 				<span class="hex-number">#F22613</span><br>
 			</div>
 		</div>
 		<div class="color-picker">
 			<div class="color-item" style="background-color:#FFA400;" onclick="chooseColor(1)">
-				<span class="color-name">Bright golden yellow</span><br>
+				<span class="color-name">Orange</span><br>
 				<span class="hex-number">#FFA400</span><br>
 			</div>
 		</div>
 		<div class="color-picker">
 			<div class="color-item" style="background-color:#F7CA18;" onclick="chooseColor(2)">
-				<span class="color-name">RIPE LEMON</span><br>
+				<span class="color-name">LEMON</span><br>
 				<span class="hex-number">#F7CA18</span><br>
 			</div>
 		</div>
 		<div class="color-picker">
 			<div class="color-item" style="background-color:#87D37C;" onclick="chooseColor(3)">
-				<span class="color-name">GOSSIP</span><br>
+				<span class="color-name">Light Green</span><br>
 				<span class="hex-number">#87D37C</span><br>
 			</div>
 		</div>
 		<div class="color-picker">
-			<div class="color-item" style="background-color:#59ABE3;" onclick="chooseColor(4)">
+			<div class="color-item" style="background-color:#E3C2f2;" onclick="chooseColor(4)">
+				<span class="color-name">Light Purple</span><br>
+				<span class="hex-number">#E3C2f2</span><br>
+			</div>
+		</div>
+		<div class="color-picker">
+			<div class="color-item" style="background-color:#59ABE3;" onclick="chooseColor(5)">
 				<span class="color-name">PICTON BLUE</span><br>
 				<span class="hex-number">#59ABE3</span><br>
 			</div>
 		</div>
+		
 		<div class="color-picker">
-			<div class="color-item" style="background-color:#BF55EC;" onclick="chooseColor(5)">
+			<div class="color-item" style="background-color:#8A59FA;" onclick="chooseColor(6)">
+				<span class="color-name">SEA BLUE</span><br>
+				<span class="hex-number">#8A59FA</span><br>
+			</div>
+		</div>
+		<div class="color-picker">
+			<div class="color-item" style="background-color:#BF55EC;" onclick="chooseColor(7)">
 				<span class="color-name">MEDIUM PURPLE</span><br>
 				<span class="hex-number">#BF55EC</span><br>
 			</div>
 		</div>
+
 		<div class="color-picker">
-			<div class="color-item" style="background-color:#ff0099;" onclick="chooseColor(6)">
+			<div class="color-item" style="background-color:#FF0099;" onclick="chooseColor(8)">
+				<span class="color-name">MAGENTA</span><br>
+				<span class="hex-number">#FF0099</span><br>
+			</div>
+		</div>
+		
+		<div class="color-picker">
+			<div class="color-item" style="background-color:#FB0366;" onclick="chooseColor(9)">
 				<span class="color-name">RADICAL RED</span><br>
-				<span class="hex-number">#ff0099</span><br>
+				<span class="hex-number">#FB0366</span><br>
 			</div>
 		</div>
     </div>
-
-
- 
-    
-
-
 	</body>
 </html>
