@@ -1,10 +1,10 @@
 {
   "name": "Puppy Lamp",
   "version": "0.0.1",
-  "scripts": {
-    "start": "node index.js"
-  }
   "author": "Yining Shi",
+    "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.10.2",
     "node-hue-api": ">=1.0.3",
