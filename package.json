@@ -1,7 +1,10 @@
 {
-  "name": "node-hue-api-examples",
+  "name": "Puppy Lamp",
   "version": "0.0.1",
-  "author": "Tom Igoe",
+  "scripts": {
+    "start": "node index.js"
+  }
+  "author": "Yining Shi",
   "dependencies": {
     "express": "^4.10.2",
     "node-hue-api": ">=1.0.3",
