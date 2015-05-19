@@ -2,8 +2,8 @@
   "name": "PuppyLamp",
   "version": "0.0.1",
   "author": "Yining Shi",
-    "scripts": {
-    "web": "node index"
+  "scripts": {
+    "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.10.2",
